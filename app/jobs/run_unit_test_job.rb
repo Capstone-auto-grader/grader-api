@@ -28,6 +28,8 @@ class RunUnitTestJob < ApplicationJob
     testcases = a.xpath('//testcase')
 
     json_hash = {
+        'status' => 'ok',
+        'id' => submission.proj_id,
         'number-of-tests' => testsuite.attribute('tests').text.to_i,
         'number-of-failures' => testsuite.attribute('failures').text.to_i,
         'number-of-errors' => testsuite.attribute('errors').text.to_i
