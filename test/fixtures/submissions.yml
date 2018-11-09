@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  proj_id: MyString
+  container_id: MyString
+  result: MyText
+
+two:
+  proj_id: MyString
+  container_id: MyString
+  result: MyText
