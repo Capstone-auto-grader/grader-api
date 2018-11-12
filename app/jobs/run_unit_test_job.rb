@@ -14,6 +14,8 @@ class RunUnitTestJob < ApplicationJob
   IMAGE_ID = '9009ac181796'
   def perform(submission_id, project_uri, test_uri)
     submission = Submission.find(submission_id)
+    puts project_uri
+    puts test_uri
     container = Docker::Container.create('Image' => IMAGE_ID,
                                          'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}"],
                                          'Cmd' => ['./unzip-and-grade.sh', project_uri, test_uri],
@@ -21,6 +23,7 @@ class RunUnitTestJob < ApplicationJob
     submission.update_attribute(:container_id, container.id)
     container.tap(&:start).attach(tty: true)
     xml = container.logs(stdout: true)
+    puts xml
     # TODO: CHECK EXIT STATUS
     a = Nokogiri::XML(xml)
 
@@ -49,15 +52,16 @@ class RunUnitTestJob < ApplicationJob
     json_hash[:failures] = failures.to_h
 
     json_str = json_hash.to_json
+    puts json_str
     submission.update_attribute(:result, json_str)
     uri = URI 'localhost:3000'
-    http = Net::HTTP.new(uri.host, uri.port)
-    req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
-    begin
-      res = http.request req
-      puts res
-    rescue => e
-      puts e
-    end
+    # http = Net::HTTP.new(uri.host, uri.port)
+    # req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+    # begin
+    #   res = http.request req
+    #   puts res
+    # rescue => e
+    #   puts e
+    # end
   end
 end
