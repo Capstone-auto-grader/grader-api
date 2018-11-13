@@ -29,7 +29,18 @@ class RunUnitTestJob < ApplicationJob
 
     testsuite = a.at_xpath('//testsuite')
     testcases = a.xpath('//testcase')
-
+    if testsuite.nil?
+      json_str = {'status' => 'failure', 'id' => submission.proj_id   }
+      puts json_str
+      submission.update_attribute(:result, json_str)
+      uri = URI.parse('http://localhost/grades')
+      uri.port = 3000
+      http = Net::HTTP.new(uri.host, uri.port)
+      req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
+      req.body = json_str.to_json
+      res = http.request req
+    return
+    end
     json_hash = {
         'status' => 'ok',
         'id' => submission.proj_id,
