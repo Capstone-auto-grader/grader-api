@@ -6,7 +6,7 @@ require 'net/http'
 # Note-- the precondition here is that there is going to be an image with the given image_id pre-existing on the computer.
 # Image building is not within the scope of this job, for purposes of efficiency
 #
-# TODO: This is not working yet, it needs to be run as an administrator.
+
 class RunUnitTestJob < ApplicationJob
   queue_as :default
   SECRET_KEY = ENV['SECRET_KEY']
@@ -33,9 +33,9 @@ class RunUnitTestJob < ApplicationJob
     json_hash = {
         'status' => 'ok',
         'id' => submission.proj_id,
-        'number-of-tests' => testsuite.attribute('tests').text.to_i,
-        'number-of-failures' => testsuite.attribute('failures').text.to_i,
-        'number-of-errors' => testsuite.attribute('errors').text.to_i
+        'number_of_tests' => testsuite.attribute('tests').text.to_i,
+        'number_of_failures' => testsuite.attribute('failures').text.to_i,
+        'number_of_errors' => testsuite.attribute('errors').text.to_i
     }
 
 
@@ -54,14 +54,18 @@ class RunUnitTestJob < ApplicationJob
     json_str = json_hash.to_json
     puts json_str
     submission.update_attribute(:result, json_str)
-    uri = URI 'localhost:3000'
-    # http = Net::HTTP.new(uri.host, uri.port)
-    # req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+    uri = URI.parse('http://localhost/grades')
+    uri.port = 3000
+    http = Net::HTTP.new(uri.host, uri.port)
+    req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
+    req.body = json_str
+    #req = Net::HTTP.post uri, json_str, 'Content-Type' => 'application/json'
+
     # begin
-    #   res = http.request req
-    #   puts res
+      res = http.request req
+      puts res
     # rescue => e
-    #   puts e
+     #  puts e
     # end
   end
 end
