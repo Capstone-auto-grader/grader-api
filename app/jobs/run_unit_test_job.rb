@@ -6,7 +6,7 @@ require 'net/http'
 # Note-- the precondition here is that there is going to be an image with the given image_id pre-existing on the computer.
 # Image building is not within the scope of this job, for purposes of efficiency
 #
-
+# Note-- docker  thread = Thread.new { container.attach { |stream, chunk| puts "#{chunk}" } }
 class RunUnitTestJob < ApplicationJob
   queue_as :default
   SECRET_KEY = ENV['SECRET_KEY']
@@ -16,6 +16,7 @@ class RunUnitTestJob < ApplicationJob
     submission = Submission.find(submission_id)
     puts project_uri
     puts test_uri
+    Docker.options[:read_timeout] = 7200
     container = Docker::Container.create('Image' => IMAGE_ID,
                                          'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}"],
                                          'Cmd' => ['./unzip-and-grade.sh', project_uri, test_uri],
@@ -33,8 +34,7 @@ class RunUnitTestJob < ApplicationJob
       json_str = {'status' => 'failure', 'id' => submission.proj_id   }
       puts json_str
       submission.update_attribute(:result, json_str)
-      uri = URI.parse('http://localhost/grades')
-      uri.port = 3000
+      uri = URI.parse('http://localhost:3000/grades')
       http = Net::HTTP.new(uri.host, uri.port)
       req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
       req.body = json_str.to_json
@@ -65,16 +65,14 @@ class RunUnitTestJob < ApplicationJob
     json_str = json_hash.to_json
     puts json_str
     submission.update_attribute(:result, json_str)
-    uri = URI.parse('http://localhost/grades')
-    uri.port = 3000
+    uri = URI.parse('http://capstone-grading.herokuapp.com/grades')
     http = Net::HTTP.new(uri.host, uri.port)
     req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
     req.body = json_str
     #req = Net::HTTP.post uri, json_str, 'Content-Type' => 'application/json'
-
     # begin
-      res = http.request req
-      puts res
+    res = http.request req
+    puts res
     # rescue => e
      #  puts e
     # end
