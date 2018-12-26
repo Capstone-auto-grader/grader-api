@@ -1,2 +1,2 @@
 require 'docker'
-Docker.url = 'tcp://localhost:2375'
+Docker.url = ENV["DOCKER_URL"]
