@@ -17,6 +17,7 @@ class RunUnitTestJob < ApplicationJob
     puts test_uri
     Docker.options[:read_timeout] = 7200
     img = Container.find_by(name: image_name)
+    puts img
     container = Docker::Container.create('Image' => img.id,
                                          'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}"],
                                          'Cmd' => ['./unzip-and-grade.sh', project_uri, test_uri],
