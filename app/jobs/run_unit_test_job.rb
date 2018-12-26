@@ -1,4 +1,4 @@
-require 'docker'
+# require 'docker'
 require 'nokogiri'
 require 'json'
 require 'net/http'
@@ -11,13 +11,13 @@ class RunUnitTestJob < ApplicationJob
   queue_as :default
   SECRET_KEY = ENV['SECRET_KEY']
   ACCESS_KEY = ENV['ACCESS_KEY']
-  IMAGE_ID = '9009ac181796'
-  def perform(submission_id, project_uri, test_uri)
+  def perform(submission_id, project_uri, test_uri, image_name)
     submission = Submission.find(submission_id)
     puts project_uri
     puts test_uri
     Docker.options[:read_timeout] = 7200
-    container = Docker::Container.create('Image' => IMAGE_ID,
+    img = Container.find_by(name: image_name)
+    container = Docker::Container.create('Image' => img.id,
                                          'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}"],
                                          'Cmd' => ['./unzip-and-grade.sh', project_uri, test_uri],
                                          'Tty' => true)
