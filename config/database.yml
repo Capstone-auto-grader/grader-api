@@ -28,6 +28,6 @@ test:
 
 production:
   <<: *default
-  database: grader-api_prod
-  username: capstone
-  password: capstone
+  database: capstone-grading-worker_production
+  username: capstone-grading-worker
+  password: <%= ENV["CAPSTONE-GRADING-WORKER_DATABASE_PASSWORD"] %>
