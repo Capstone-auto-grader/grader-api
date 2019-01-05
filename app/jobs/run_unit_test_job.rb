@@ -13,11 +13,11 @@ class RunUnitTestJob < ApplicationJob
   ACCESS_KEY = ENV['ACCESS_KEY']
   def perform(submission_id, project_uri, test_uri, image_name)
     submission = Submission.find(submission_id)
-    puts project_uri
-    puts test_uri
+    # puts project_uri
+    # puts test_uri
     Docker.options[:read_timeout] = 7200
     img = Container.find_by(name: image_name)
-    puts img
+    # puts img
     container = Docker::Container.create('Image' => img.uid,
                                          'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}"],
                                          'Cmd' => ['./unzip-and-grade.sh', project_uri, test_uri],
@@ -25,7 +25,7 @@ class RunUnitTestJob < ApplicationJob
     submission.update_attribute(:container_id, container.id)
     container.tap(&:start).attach(tty: true)
     xml = container.logs(stdout: true)
-    puts xml
+    # puts xml
     # TODO: CHECK EXIT STATUS
     a = Nokogiri::XML(xml)
 
@@ -33,9 +33,9 @@ class RunUnitTestJob < ApplicationJob
     testcases = a.xpath('//testcase')
     if testsuite.nil?
       json_str = {'status' => 'failure', 'id' => submission.proj_id   }
-      puts json_str
+      # puts json_str
       submission.update_attribute(:result, json_str)
-      uri = URI.parse('http://localhost:3000/grades')
+      uri = URI.parse('http://capstone-grading.herokuapp.com/grades')
       http = Net::HTTP.new(uri.host, uri.port)
       req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
       req.body = json_str.to_json
@@ -64,7 +64,7 @@ class RunUnitTestJob < ApplicationJob
     json_hash[:failures] = failures.to_h
 
     json_str = json_hash.to_json
-    puts json_str
+    # puts json_str
     submission.update_attribute(:result, json_str)
     uri = URI.parse('http://capstone-grading.herokuapp.com/grades')
     http = Net::HTTP.new(uri.host, uri.port)
@@ -73,9 +73,10 @@ class RunUnitTestJob < ApplicationJob
     #req = Net::HTTP.post uri, json_str, 'Content-Type' => 'application/json'
     # begin
     res = http.request req
-    puts res
+    # puts res
     # rescue => e
      #  puts e
     # end
+
   end
 end
