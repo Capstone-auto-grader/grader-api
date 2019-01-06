@@ -1,2 +1,2 @@
 require 'docker'
-Docker.url = ENV["DOCKER_URL"]
+Docker.url = 'tcp://stravinsky.eastus.cloudapp.azure.com:2375'

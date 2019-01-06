@@ -35,7 +35,7 @@ class RunUnitTestJob < ApplicationJob
       json_str = {'status' => 'failure', 'id' => submission.proj_id   }
       # puts json_str
       submission.update_attribute(:result, json_str)
-      uri = URI.parse('http://capstone-grading.herokuapp.com/grades')
+      uri = URI.parse('http://localhost:3000/grades')
       http = Net::HTTP.new(uri.host, uri.port)
       req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
       req.body = json_str.to_json
@@ -54,19 +54,19 @@ class RunUnitTestJob < ApplicationJob
     failures = testcases.select {|c| !c.children.empty?}.map do |t|
       ret = []
       if t.at_xpath('//failure')
-        ret << [:failure, t.at_xpath('//failure').attribute('message').at_xpath('text()') ? t.at_xpath('//failure').attribute('message').text : t.at_xpath('//failure/text()').text  ]
+        ret << [:failure, t.at_xpath('//failure').attribute('message').at_xpath('text()') ? t.at_xpath('//failure').attribute('message').text : t.at_xpath('//failure/text()').text  ] unless t.at_xpath('//failure').attribute('message').nil?
       end
       if t.at_xpath('//error')
         ret << [:error, t.at_xpath('//error').text]
       end
       [t.attribute('name').text , ret.to_h]
     end
-    json_hash[:failures] = failures.to_h
+    # json_hash[:failures] = failures.to_h
 
     json_str = json_hash.to_json
     # puts json_str
     submission.update_attribute(:result, json_str)
-    uri = URI.parse('http://capstone-grading.herokuapp.com/grades')
+    uri = URI.parse('http://localhost:3000/grades')
     http = Net::HTTP.new(uri.host, uri.port)
     req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
     req.body = json_str
