@@ -25,6 +25,7 @@ class RunUnitTestJob < ApplicationJob
     submission.update_attribute(:container_id, container.id)
     container.tap(&:start).attach(tty: true)
     xml = container.logs(stdout: true)
+    # puts "XML"
     # puts xml
     # TODO: CHECK EXIT STATUS
     a = Nokogiri::XML(xml)
@@ -33,6 +34,7 @@ class RunUnitTestJob < ApplicationJob
     testcases = a.xpath('//testcase')
     if testsuite.nil?
       json_str = {'status' => 'failure', 'id' => submission.proj_id   }
+      # puts "STR"
       # puts json_str
       submission.update_attribute(:result, json_str)
       uri = URI.parse('http://localhost:3000/grades')
@@ -54,17 +56,22 @@ class RunUnitTestJob < ApplicationJob
     failures = testcases.select {|c| !c.children.empty?}.map do |t|
       ret = []
       if t.at_xpath('//failure')
-        ret << [:failure, t.at_xpath('//failure').attribute('message').at_xpath('text()') ? t.at_xpath('//failure').attribute('message').text : t.at_xpath('//failure/text()').text  ] unless t.at_xpath('//failure').attribute('message').nil?
+        if ! t.at_xpath('//failure').attribute('message').nil?
+        ret << [:failure, t.at_xpath('//failure').attribute('message').at_xpath('text()') ? t.at_xpath('//failure').attribute('message').text : t.at_xpath('//failure/text()').text  ]
+
+        else
+          ret << [:failure, t.at_xpath('//failure').attribute('type').text]
+        end
       end
       if t.at_xpath('//error')
         ret << [:error, t.at_xpath('//error').text]
       end
       [t.attribute('name').text , ret.to_h]
     end
-    # json_hash[:failures] = failures.to_h
+    json_hash[:failures] = failures.to_h
 
     json_str = json_hash.to_json
-    # puts json_str
+    # uts json_str
     submission.update_attribute(:result, json_str)
     uri = URI.parse('http://localhost:3000/grades')
     http = Net::HTTP.new(uri.host, uri.port)
