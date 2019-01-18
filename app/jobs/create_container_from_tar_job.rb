@@ -8,5 +8,6 @@ class CreateContainerFromTarJob < ApplicationJob
     container.uid = image.id
     container.save!
     # Do something later
+    puts "CONTAINER SAVED"
   end
 end
