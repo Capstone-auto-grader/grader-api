@@ -1,10 +1,10 @@
 class TestController < ApplicationController
 
   def runtests
-    unless Submission.where(proj_id: params[:proj_id]).empty?
-      render json: {already_submitted: true}.to_json, status: 418
-      return
-    end
+    # unless Submission.where(proj_id: params[:proj_id]).empty?
+    #   render json: {already_submitted: true}.to_json, status: 418
+    #   return
+    # end
     # puts params
     subm = Submission.create(proj_id: params[:proj_id], image_name: params[:image_name])
     RunUnitTestJob.perform_later subm.id, params[:proj_zip], params[:test_zip], params[:image_name], params[:student_name]
