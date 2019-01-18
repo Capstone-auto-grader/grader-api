@@ -12,7 +12,7 @@ class RunUnitTestJob < ApplicationJob
   SECRET_KEY = ENV['SECRET_KEY']
   ACCESS_KEY = ENV['ACCESS_KEY']
   XML_HEADER = '<?xml version="1.0" encoding="UTF-8" ?>'
-  def perform(submission_id, project_uri, test_uri, image_name)
+  def perform(submission_id, project_uri, test_uri, image_name, student_name)
     submission = Submission.find(submission_id)
     # puts project_uri
     # puts test_uri
@@ -21,7 +21,7 @@ class RunUnitTestJob < ApplicationJob
     # puts img
     container = Docker::Container.create('Image' => img.uid,
                                          'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}"],
-                                         'Cmd' => ['./unzip-and-grade.sh', project_uri, test_uri],
+                                         'Cmd' => ['./unzip-and-grade.sh', project_uri, test_uri, student_name],
                                          'Tty' => true)
     submission.update_attribute(:container_id, container.id)
     container.tap(&:start).attach(tty: true)
