@@ -153,7 +153,7 @@ class RunUnitTestJob < ApplicationJob
   def post_results_to_webserver(submission, xml_hash)
     json_str = xml_hash.to_json
     submission.update_attribute(:result, json_str)
-    uri = URI.parse('http://capstone-grading.herokuapp.com/grades')
+    uri = URI.parse('http://localhost:3000/grades')
     http = Net::HTTP.new(uri.host, uri.port)
     req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
     req.body = json_str
