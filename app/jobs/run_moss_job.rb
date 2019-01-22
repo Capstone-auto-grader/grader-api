@@ -12,7 +12,7 @@ class RunMossJob < ApplicationJob
                                          'Tty' => true)
     container.tap(&:start).attach(:tty => true)
     url = container.logs(stdout: true)
-    uri = URI.parse('http://localhost:3000/moss')
+    uri = URI.parse("#{ENV['GRADING_SERVER']}/moss")
     http = Net::HTTP.new(uri.host, uri.port)
     req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
     req.body = {assignment_id: assignment_id, moss_url: url.squish}.to_json
