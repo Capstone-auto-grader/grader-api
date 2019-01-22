@@ -18,4 +18,9 @@ class TestController < ApplicationController
     puts "CONTINUING"
     render json: {}.to_json, status: :accepted
   end
+
+  def moss
+    RunMossJob.perform_later(params[:assignment_id], 'moss', params[:uris], params[:base_uri])
+    render json: {}.to_json, status: :accepted
+  end
 end
