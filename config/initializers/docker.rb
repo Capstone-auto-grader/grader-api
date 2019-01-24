@@ -1,4 +1,4 @@
 require 'docker'
-# Docker.url = 'tcp://stravinsky.eastus.cloudapp.azure.com:2375'
+Docker.url = ENV['DOCKER_URL']
 Excon.defaults[:write_timeout] = 1000
 Excon.defaults[:read_timeout] = 1000
