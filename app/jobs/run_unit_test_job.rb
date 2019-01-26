@@ -12,7 +12,7 @@ class RunUnitTestJob < ApplicationJob
   SECRET_KEY = ENV['SECRET_KEY']
   ACCESS_KEY = ENV['ACCESS_KEY']
   XML_HEADER = '<?xml version="1.0" encoding="UTF-8" ?>'
-  def perform(submission_id, project_uri, test_uri, image_name, student_name)
+  def perform(submission_id, project_uri, test_uri, image_name, student_name, security_string)
     submission = Submission.find(submission_id)
     # puts project_uri
     # puts test_uri
@@ -29,7 +29,7 @@ class RunUnitTestJob < ApplicationJob
     # puts xml
     xml_arr = split_output_to_xmls(xml)
     hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
-    final_hash = aggregate_json_hashes(submission,hash_arr)
+    final_hash = aggregate_json_hashes(submission,hash_arr, security_stringgit)
     puts final_hash
     post_results_to_webserver(submission, final_hash)
 
@@ -95,7 +95,7 @@ class RunUnitTestJob < ApplicationJob
 
   end
 
-  def aggregate_json_hashes(submission, hashes)
+  def aggregate_json_hashes(submission, hashes, sec_string)
     if hashes.empty?
       return {'status' => 'failure', 'id' => submission.proj_id   }
     end
@@ -106,6 +106,7 @@ class RunUnitTestJob < ApplicationJob
     return {
         'status' => 'ok',
         'id' => submission.proj_id,
+        'sec' => sec_string,
         'number_of_tests' => number_of_tests,
         'number_of_failures' => number_of_failures,
         'number_of_errors' => number_of_errors,

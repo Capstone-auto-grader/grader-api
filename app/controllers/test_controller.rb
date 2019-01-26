@@ -7,7 +7,7 @@ class TestController < ApplicationController
     # end
     # puts params
     subm = Submission.create(proj_id: params[:proj_id], image_name: params[:image_name])
-    RunUnitTestJob.perform_later subm.id, params[:proj_zip], params[:test_zip], params[:image_name], params[:student_name]
+    RunUnitTestJob.perform_later subm.id, params[:proj_zip], params[:test_zip], params[:image_name], params[:student_name], params[:sec]
     #  Initialize worker method here with params[:proj_zip] and params[:test_zip]
     render json: {already_submitted: false}.to_json, status: :accepted
   end
