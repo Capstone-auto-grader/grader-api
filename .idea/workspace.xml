@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d01cf3b2-5227-4f0a-af22-d7b401988ea3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/controllers/test_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/test_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/jobs/run_unit_test_job.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/jobs/run_unit_test_job.rb" afterDir="false" />
-    </list>
+    <list default="true" id="d01cf3b2-5227-4f0a-af22-d7b401988ea3" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
     <ignored path="$PROJECT_DIR$/public/system/" />
@@ -23,7 +20,7 @@
         <entry file="file://$PROJECT_DIR$/app/jobs/run_unit_test_job.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="31" column="75" selection-start-line="31" selection-start-column="75" selection-end-line="31" selection-end-column="75" />
+              <caret line="31" column="78" selection-start-line="31" selection-start-column="78" selection-end-line="31" selection-end-column="78" />
             </state>
           </provider>
         </entry>
@@ -359,7 +356,7 @@
       <workItem from="1547854913090" duration="27858000" />
       <workItem from="1548189574053" duration="670000" />
       <workItem from="1548194257942" duration="988000" />
-      <workItem from="1548297654827" duration="13104000" />
+      <workItem from="1548297654827" duration="14182000" />
     </task>
     <task id="LOCAL-00001" summary="This makes the basic REST API work">
       <created>1542061389502</created>
@@ -371,10 +368,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45993000" />
+    <option name="totallyTimeSpent" value="47071000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7536946" visible="true" weight="0.2022412" />
       <window_info id="Structure" order="1" sideWeight="0.24630542" side_tool="true" weight="0.34098187" />
@@ -534,7 +532,7 @@
     <entry file="file://$PROJECT_DIR$/app/jobs/run_unit_test_job.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="31" column="75" selection-start-line="31" selection-start-column="75" selection-end-line="31" selection-end-column="75" />
+          <caret line="31" column="78" selection-start-line="31" selection-start-column="78" selection-end-line="31" selection-end-column="78" />
         </state>
       </provider>
     </entry>

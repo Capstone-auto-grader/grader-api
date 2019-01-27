@@ -29,7 +29,7 @@ class RunUnitTestJob < ApplicationJob
     # puts xml
     xml_arr = split_output_to_xmls(xml)
     hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
-    final_hash = aggregate_json_hashes(submission,hash_arr, security_stringgit)
+    final_hash = aggregate_json_hashes(submission,hash_arr, security_string)
     puts final_hash
     post_results_to_webserver(submission, final_hash)
 
