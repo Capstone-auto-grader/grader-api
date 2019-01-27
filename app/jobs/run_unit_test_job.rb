@@ -97,7 +97,7 @@ class RunUnitTestJob < ApplicationJob
 
   def aggregate_json_hashes(submission, hashes, sec_string)
     if hashes.empty?
-      return {'status' => 'failure', 'id' => submission.proj_id   }
+      return {'status' => 'failure', 'id' => submission.proj_id, 'sec'=> sec_string }
     end
     failures = hashes.map {|hash| hash[:failures]}.inject &:merge
     number_of_failures = hashes.inject(0) { |accum, hash| accum + hash['number_of_failures']}
