@@ -13,11 +13,13 @@ class RecombineAndUploadJob < ApplicationJob
     container.start
     # thread.join
     json_str = {zip_name: zip_name, assignment_id: assignment_id, ta_id: ta_id}.to_json
+    puts :REQUESTING
     uri = URI.parse("#{ENV['GRADING_SERVER']}/batch")
     http = Net::HTTP.new(uri.host, uri.port)
     req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
     req.body = json_str
     res = http.request req
+    puts "RES #{res}"
   end
 
 end
