@@ -364,7 +364,7 @@
       <workItem from="1548189574053" duration="670000" />
       <workItem from="1548194257942" duration="988000" />
       <workItem from="1548297654827" duration="14182000" />
-      <workItem from="1548605964941" duration="13240000" />
+      <workItem from="1548605964941" duration="13425000" />
     </task>
     <task id="LOCAL-00001" summary="This makes the basic REST API work">
       <created>1542061389502</created>
@@ -376,7 +376,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60311000" />
+    <option name="totallyTimeSpent" value="60496000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
