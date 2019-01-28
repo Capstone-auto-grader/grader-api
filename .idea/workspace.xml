@@ -22,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/app/jobs/run_unit_test_job.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="22" column="207" selection-start-line="22" selection-start-column="207" selection-end-line="22" selection-end-column="207" />
+              <caret line="22" column="166" selection-start-line="22" selection-start-column="166" selection-end-line="22" selection-end-column="166" />
             </state>
           </provider>
         </entry>
@@ -364,7 +364,7 @@
       <workItem from="1548189574053" duration="670000" />
       <workItem from="1548194257942" duration="988000" />
       <workItem from="1548297654827" duration="14182000" />
-      <workItem from="1548605964941" duration="12498000" />
+      <workItem from="1548605964941" duration="13240000" />
     </task>
     <task id="LOCAL-00001" summary="This makes the basic REST API work">
       <created>1542061389502</created>
@@ -376,13 +376,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59569000" />
+    <option name="totallyTimeSpent" value="60311000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7536946" visible="true" weight="0.13553895" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7536946" visible="true" weight="0.13553895" />
       <window_info id="Structure" order="1" sideWeight="0.24630542" side_tool="true" weight="0.34098187" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -395,7 +395,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32969433" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.20305677" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.20305677" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.32751092" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -546,7 +546,7 @@
     <entry file="file://$PROJECT_DIR$/app/jobs/run_unit_test_job.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
-          <caret line="22" column="207" selection-start-line="22" selection-start-column="207" selection-end-line="22" selection-end-column="207" />
+          <caret line="22" column="166" selection-start-line="22" selection-start-column="166" selection-end-line="22" selection-end-column="166" />
         </state>
       </provider>
     </entry>
