@@ -20,7 +20,7 @@ class RunUnitTestJob < ApplicationJob
     img = Container.find_by(name: image_name)
     # puts img
     container = Docker::Container.create('Image' => img.uid,
-                                         'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}", 'MAVEN_OPTS="-Xmx2048m"','_JAVA_OPTIONS="-Xms1024m  -XX:MaxPermSize=512m"' ],
+                                         'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}",'_JAVA_OPTIONS="-XX:MaxPermSize=512m -Xmx512m"'],
                                          'Cmd' => ['./unzip-and-grade.sh', project_uri, test_uri, student_name],
                                          'Tty' => true)
     submission.update_attribute(:container_id, container.id)
