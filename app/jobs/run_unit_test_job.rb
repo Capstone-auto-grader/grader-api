@@ -29,8 +29,14 @@ class RunUnitTestJob < ApplicationJob
     # puts xml
     xml_arr = split_output_to_xmls(xml)
     hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
-    final_hash = aggregate_json_hashes(submission,hash_arr, security_string)
-    puts final_hash
+    xml_arr = split_output_to_xmls(xml)
+    if container.json["State"]["ExitCode"] == 0
+      final_hash = aggregate_json_hashes(submission,hash_arr, security_string)
+    elsif container.json["State"]["ExitCode"] == 1
+      final_hash = {'status' => 'failure', 'id' => submission.proj_id, 'sec'=> security_string }
+    else
+      final_hash = {'status' => 'CompilerError', 'id' => submission.proj_id, 'sec'=> security_string }
+    end
     post_results_to_webserver(submission, final_hash)
 
     # puts "XML"
