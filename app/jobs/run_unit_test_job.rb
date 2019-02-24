@@ -29,7 +29,6 @@ class RunUnitTestJob < ApplicationJob
     # puts xml
     xml_arr = split_output_to_xmls(xml)
     hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
-    xml_arr = split_output_to_xmls(xml)
     if container.json["State"]["ExitCode"] == 0
       final_hash = aggregate_json_hashes(submission,hash_arr, security_string)
     elsif container.json["State"]["ExitCode"] == 1
