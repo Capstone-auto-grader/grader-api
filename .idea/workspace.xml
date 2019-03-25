@@ -4,8 +4,6 @@
     <list default="true" id="d01cf3b2-5227-4f0a-af22-d7b401988ea3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/test_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/test_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/jobs/run_unit_test_job.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/jobs/run_unit_test_job.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/initializers/docker.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/initializers/docker.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -21,7 +19,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/jobs/run_unit_test_job.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="570">
@@ -34,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/app/jobs/run_moss_job.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="6" column="47" lean-forward="true" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
+              <caret line="6" column="47" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -71,11 +69,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/test_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="69" selection-start-line="22" selection-start-column="69" selection-end-line="22" selection-end-column="69" />
+            <state relative-caret-position="360">
+              <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -137,8 +135,8 @@
         <option value="$PROJECT_DIR$/config/initializers/docker.rb" />
         <option value="$PROJECT_DIR$/config/puma.rb" />
         <option value="$PROJECT_DIR$/app/jobs/recombine_and_upload_job.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/test_controller.rb" />
         <option value="$PROJECT_DIR$/app/jobs/run_unit_test_job.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/test_controller.rb" />
       </list>
     </option>
   </component>
@@ -367,7 +365,7 @@
       <workItem from="1548297654827" duration="14182000" />
       <workItem from="1548605964941" duration="7247000" />
       <workItem from="1553116791244" duration="2523000" />
-      <workItem from="1553472526513" duration="1589000" />
+      <workItem from="1553472526513" duration="3704000" />
     </task>
     <task id="LOCAL-00001" summary="This makes the basic REST API work">
       <created>1542061389502</created>
@@ -379,7 +377,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58430000" />
+    <option name="totallyTimeSpent" value="60545000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
@@ -515,7 +513,7 @@
     <entry file="file://$PROJECT_DIR$/app/jobs/run_moss_job.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="6" column="47" lean-forward="true" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
+          <caret line="6" column="47" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -540,17 +538,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/test_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="69" selection-start-line="22" selection-start-column="69" selection-end-line="22" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/jobs/run_unit_test_job.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
           <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/test_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
         </state>
       </provider>
     </entry>
