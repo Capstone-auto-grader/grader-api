@@ -27,12 +27,23 @@ class RunUnitTestJob < ApplicationJob
     container.tap(&:start).attach(tty: true)
     xml = container.logs(stdout: true)
     # puts xml
-    xml_arr = split_output_to_xmls(xml)
-    hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
-    final_hash = aggregate_json_hashes(submission,hash_arr, security_string)
-    puts final_hash
-    post_results_to_webserver(submission, final_hash)
-
+      if image_name == 'processing'
+        final_hash = {
+            'status' => 'ok',
+            'id' => submission.proj_id,
+            'sec' => security_string,
+            'number_of_tests' => 0,
+            'number_of_failures' => 0,
+            'number_of_errors' => 0
+        }
+        post_results_to_webserver(submission, final_hash)
+      else
+        xml_arr = split_output_to_xmls(xml)
+        hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
+        final_hash = aggregate_json_hashes(submission,hash_arr, security_string)
+        puts final_hash
+        post_results_to_webserver(submission, final_hash)
+      end
     # puts "XML"
     # puts xml
     # TODO: CHECK EXIT STATUS
