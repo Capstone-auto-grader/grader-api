@@ -20,7 +20,7 @@ class TestController < ApplicationController
   end
 
   def moss
-    RunMossJob.perform_later(params[:assignment_id], params[:container_id], params[:uris], params[:base_uri])
+    RunMossJob.perform_later(params[:assignment_id], params[:container_id].nil? ? params[:container_id] : "moss", params[:uris], params[:base_uri])
     render json: {}.to_json, status: :accepted
   end
 end
