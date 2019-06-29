@@ -15,24 +15,15 @@ class ContainersController < ApplicationController
 
   # POST /containers
   def create
-    @container = Container.new(container_params)
-
-    if @container.save
-      CreateContainerFromTarJob.perform_later(@container.id)
-      render json: @container, status: :created, location: @container
-    else
-      render json: @container.errors, status: :unprocessable_entity
-    end
+    params = container_params
+    CreateContainerFromTarJob.perform_later(params[:config_uri], params[:container_name])
+    render json: @container, status: :created, location: @container
   end
 
   # PATCH/PUT /containers/1
   def update
-    if @container.update(container_params)
-      CreateContainerFromTarJob.perform_later(@container.id)
-      render json: @container
-    else
-      render json: @container.errors, status: :unprocessable_entity
-    end
+    params = container_params
+    CreateContainerFromTarJob.perform_later(params[:config_uri], params[:container_name])
   end
 
   # DELETE /containers/1
@@ -48,6 +39,6 @@ class ContainersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def container_params
-      params.require(:container).permit(:config_uri, :name)
+      params.require(:container).permit(:container_name, :config_uri)
     end
 end
