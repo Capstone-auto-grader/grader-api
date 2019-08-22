@@ -1,18 +1,20 @@
 require 'aws-sdk'
 
-# Aws.config.update({
-#     region: 'us-east-1',
-#     access_key_id: ENV['ACCESS_KEY'],
-#     secret_access_key: ENV['SECRET_KEY'],
-# })
+Aws.config.update({
+    region: 'us-east-1',
+    access_key_id: ENV['ACCESS_KEY'],
+    secret_access_key: ENV['SECRET_KEY'],
+})
 
 
-S3_BUCKET = Aws::S3::Resource.new.bucket('auto-grader-capstone')
+S3_BUCKET = Aws::S3::Resource.new.bucket('auto-grader')
 ECR_CLIENT = Aws::ECR::Client.new
 ECR_BASE_URI = '772137347529.dkr.ecr.us-east-2.amazonaws.com'
 
-@token = ECR_CLIENT.get_authorization_token.authorization_data.first
+
 def get_docker_auth
+  @token = ECR_CLIENT.get_authorization_token(registry_ids: ['772137347529']).authorization_data.first
+  # puts "TOKEN", @token
   if @token.expires_at.to_date.past?
     @token = ECR_CLIENT.get_authorization_token.authorization_data.first
   end

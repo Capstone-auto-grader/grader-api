@@ -5,9 +5,15 @@ class CreateContainerFromTarJob < ApplicationJob
   def perform(config_uri, container_name)
     login_docker
     item_uri = S3_BUCKET.object(config_uri).presigned_url(:get, expires_in: 60)
+    puts item_uri
     image = Docker::Image.build_from_tar(open(item_uri))
-    image.tag('repo' => "#{ECR_BASE_URI}/auto-grader/#{container_name}")
-    image.push
+    ecr_repo = "#{ECR_BASE_URI}/auto-grader/#{container_name}"
+    puts ecr_repo
+    image.tag(repo: ecr_repo, tag: 'latest')
+    puts "Image: #{image.id} has been tagged: #{image.info['RepoTags'].last}."
+    repo_tag = "#{ecr_repo}:latest"
+    # puts image.tags
+    puts image.push(tag: repo_tag).to_s
     # Do something later
     puts "CONTAINER SAVED"
   end

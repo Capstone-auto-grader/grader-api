@@ -16,7 +16,7 @@ class ContainersController < ApplicationController
   # POST /containers
   def create
     params = container_params
-    CreateContainerFromTarJob.perform_later(params[:config_uri], params[:container_name])
+    CreateContainerFromTarJob.perform_later(params[:config_uri], params[:name])
     render json: @container, status: :created, location: @container
   end
 
@@ -39,6 +39,6 @@ class ContainersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def container_params
-      params.require(:container).permit(:container_name, :config_uri)
+      params.require(:container).permit(:name, :config_uri)
     end
 end
