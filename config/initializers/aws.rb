@@ -7,4 +7,4 @@ Aws.config.update({
 })
 
 
-S3_BUCKET = Aws::S3::Resource.new.bucket('auto-grader-capstone')
+S3_BUCKET = Aws::S3::Resource.new.bucket('auto-grader-bucket')

@@ -7,7 +7,7 @@ class RecombineAndUploadJob < ApplicationJob
     img = Container.find_by(name: image_name)
     container = Docker::Container.create('Image' => img.uid,
                                          'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}"],
-                                         'Cmd' => ['bash', 'unzip-and-recombine.sh', zip_name, 'auto-grader-capstone'] + list_of_zips)
+                                         'Cmd' => ['bash', 'unzip-and-recombine.sh', zip_name, 'auto-grader-bucket'] + list_of_zips)
 
     # thread = Thread.new { container.attach { |stream, chunk| puts "#{stream}: #{chunk}" } }
     container.start
