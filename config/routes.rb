@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   post '/grade', to: 'test#runtests'
   post '/batch', to: 'test#batchfile'
   post '/moss', to: 'test#moss'
+  get '/get_container_from_name', to: 'containers#get_id_from_name'
 end

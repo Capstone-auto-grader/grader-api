@@ -40,6 +40,13 @@ class ContainersController < ApplicationController
     @container.destroy
   end
 
+  def get_id_from_name
+    name = params[:name]
+    container = Container.where(name: name).first
+    puts container
+    render json: container
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_container
@@ -48,6 +55,7 @@ class ContainersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def container_params
+      puts params
       params.require(:container).permit(:config_uri, :name)
     end
 end

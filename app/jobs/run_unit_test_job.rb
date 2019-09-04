@@ -11,8 +11,9 @@ class RunUnitTestJob < ApplicationJob
   queue_as :default
   SECRET_KEY = ENV['SECRET_KEY']
   ACCESS_KEY = ENV['ACCESS_KEY']
-  XML_HEADER = '<?xml version="1.0" encoding="UTF-8" ?>'
-  def perform(submission_id, project_uri, test_uri, image_name, student_name, security_string)
+  XML_HEADER = '<?xml version="1.0" encoding="UTF-8"?>'
+  def perform(submission_id, project_uri, test_uri, image_name, student_name, security_string, rerun)
+    puts "#{project_uri} PROJECT URI"
     submission = Submission.find(submission_id)
     # puts project_uri
     # puts test_uri
@@ -26,7 +27,8 @@ class RunUnitTestJob < ApplicationJob
     submission.update_attribute(:container_id, container.id)
     container.tap(&:start).attach(tty: true)
     xml = container.logs(stdout: true)
-    # puts xml
+    puts "BBBBBBBBBBBBBB"
+    puts xml
       if image_name == 'processing'
         final_hash = {
             'status' => 'ok',
@@ -40,7 +42,7 @@ class RunUnitTestJob < ApplicationJob
       else
         xml_arr = split_output_to_xmls(xml)
         hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
-        final_hash = aggregate_json_hashes(submission,hash_arr, security_string)
+        final_hash = aggregate_json_hashes(submission,hash_arr, security_string, rerun)
         puts final_hash
         post_results_to_webserver(submission, final_hash)
       end
@@ -106,7 +108,7 @@ class RunUnitTestJob < ApplicationJob
 
   end
 
-  def aggregate_json_hashes(submission, hashes, sec_string)
+  def aggregate_json_hashes(submission, hashes, sec_string, rerun)
     if hashes.empty?
       return {'status' => 'failure', 'id' => submission.proj_id, 'sec'=> sec_string }
     end
@@ -121,7 +123,8 @@ class RunUnitTestJob < ApplicationJob
         'number_of_tests' => number_of_tests,
         'number_of_failures' => number_of_failures,
         'number_of_errors' => number_of_errors,
-        'failures' => failures
+        'failures' => failures,
+        'rerun' => rerun
     }
   end
 
@@ -163,12 +166,21 @@ class RunUnitTestJob < ApplicationJob
   end
 
   def post_results_to_webserver(submission, xml_hash)
+    puts 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+    puts xml_hash
     json_str = xml_hash.to_json
     submission.update_attribute(:result, json_str)
     uri = URI.parse("#{ENV['GRADING_SERVER']}/grades")
+    puts uri
     http = Net::HTTP.new(uri.host, uri.port)
     req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
     req.body = json_str
-    res = http.request req
+    begin
+      puts http.request req
+    rescue
+      puts "RETRYING"
+      sleep rand(10)
+      puts http.request req
+    end
   end
 end
