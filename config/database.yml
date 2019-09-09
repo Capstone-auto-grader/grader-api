@@ -29,8 +29,8 @@ test:
 
 production:
   <<: *default
-    database: capstone-grading-worker_production
-    username: capstone-grading-worker
-    password: <%= ENV["CAPSTONE-GRADING-WORKER_DATABASE_PASSWORD"] %>
-    pool: 10
-
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
