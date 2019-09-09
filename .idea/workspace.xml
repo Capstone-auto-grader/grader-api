@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d01cf3b2-5227-4f0a-af22-d7b401988ea3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/config/database.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.yml" afterDir="false" />
-    </list>
+    <list default="true" id="d01cf3b2-5227-4f0a-af22-d7b401988ea3" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
     <ignored path="$PROJECT_DIR$/public/system/" />
@@ -80,8 +78,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/database.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="30" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
+            <state relative-caret-position="510">
+              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -385,7 +383,7 @@
       <workItem from="1567390528295" duration="2546000" />
       <workItem from="1567523781661" duration="124000" />
       <workItem from="1567547374337" duration="13257000" />
-      <workItem from="1568051545669" duration="4969000" />
+      <workItem from="1568051545669" duration="5265000" />
     </task>
     <task id="LOCAL-00001" summary="Modified controller to account for updates to frontend">
       <created>1567558138498</created>
@@ -398,10 +396,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146511000" />
+    <option name="totallyTimeSpent" value="146807000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7536946" visible="true" weight="0.17235859" />
       <window_info id="Structure" order="1" sideWeight="0.24630542" side_tool="true" weight="0.34098187" />
@@ -656,8 +655,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/database.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="30" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
+        <state relative-caret-position="510">
+          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
         </state>
       </provider>
     </entry>
