@@ -3,11 +3,12 @@ class RunMossJob < ApplicationJob
 
   SECRET_KEY = ENV['SECRET_KEY']
   ACCESS_KEY = ENV['ACCESS_KEY']
+  MOSS_KEY = ENV['MOSS_KEY']
   def perform(assignment_id, image_name, files, base_uri)
     image = Container.find_by(name: image_name)
     puts image.uid
     container = Docker::Container.create('Image' => image.uid,
-                                         'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}"],
+                                         'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}", "MOSS_KEY=#{MOSS_KEY}"],
                                          'Cmd' => ['ruby', 'moss.rb'] + [base_uri] +  files,
                                          'Tty' => true)
     container.tap(&:start).attach(:tty => true)
