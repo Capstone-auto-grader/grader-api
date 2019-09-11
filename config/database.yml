@@ -37,7 +37,7 @@ production:
 
 heroku:
   <<: *default
-    database: capstone-grading-worker_production
-    username: capstone-grading-worker
-    password: <%= ENV["CAPSTONE-GRADING-WORKER_DATABASE_PASSWORD"] %>
-    pool: 10
+  database: capstone-grading-worker_production
+  username: capstone-grading-worker
+  password: <%= ENV["CAPSTONE-GRADING-WORKER_DATABASE_PASSWORD"] %>
+  pool: 10
