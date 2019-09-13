@@ -5,6 +5,7 @@ class RunMossJob < ApplicationJob
   ACCESS_KEY = ENV['ACCESS_KEY']
   MOSS_KEY = ENV['MOSS_KEY']
   def perform(assignment_id, image_name, files, base_uri)
+    puts base_uri
     image = Container.find_by(name: image_name)
     puts image.uid
     container = Docker::Container.create('Image' => image.uid,
@@ -13,6 +14,7 @@ class RunMossJob < ApplicationJob
                                          'Tty' => true)
     container.tap(&:start).attach(:tty => true)
     url = container.logs(stdout: true)
+    puts url
     uri = URI.parse("#{ENV['GRADING_SERVER']}/moss")
     http = Net::HTTP.new(uri.host, uri.port)
     req = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json'})
