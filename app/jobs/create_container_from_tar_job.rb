@@ -8,6 +8,7 @@ class CreateContainerFromTarJob < ApplicationJob
     puts item_uri
     
     image = Docker::Image.build_from_tar(open(item_uri))
+    puts "IMAGE", image
     container.uid = image.id
     container.save!
     # Do something later
