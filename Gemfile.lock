@@ -728,8 +728,6 @@ GEM
       aws-sigv4 (~> 1.0)
     aws-sigv2 (1.0.1)
     aws-sigv4 (1.0.3)
-    bootsnap (1.3.2)
-      msgpack (~> 1.0)
     builder (3.2.3)
     byebug (10.0.2)
     coderay (1.1.2)
@@ -763,7 +761,6 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    msgpack (1.2.4)
     multi_json (1.13.1)
     nio4r (2.3.1)
     nokogiri (1.8.5)
@@ -832,7 +829,6 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk
-  bootsnap (>= 1.1.0)
   byebug
   docker-api
   json
