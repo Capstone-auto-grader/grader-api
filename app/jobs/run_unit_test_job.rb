@@ -11,7 +11,8 @@ class RunUnitTestJob < ApplicationJob
   queue_as :default
   SECRET_KEY = ENV['SECRET_KEY']
   ACCESS_KEY = ENV['ACCESS_KEY']
-  XML_HEADER = /<\?xml version="1\.0" encoding="UTF-8" ?\?>/
+  XML_HEADER = '<?xml version="1.0" encoding="UTF-8" ?>'
+  XML_HEADER_REGEX = /<\?xml version="1\.0" encoding="UTF-8" ?\?>/
   def perform(submission_id, project_uri, test_uri, image_name, student_name, security_string, rerun)
     puts "#{project_uri} PROJECT URI"
     submission = Submission.find(submission_id)
@@ -163,7 +164,7 @@ class RunUnitTestJob < ApplicationJob
 
 
   def split_output_to_xmls(output)
-    return output.split(XML_HEADER).map {|elem| XML_HEADER + elem }.drop(1)
+    return output.split(XML_HEADER_REGEX).map {|elem| XML_HEADER + elem }.drop(1)
   end
 
   def post_results_to_webserver(submission, xml_hash)
