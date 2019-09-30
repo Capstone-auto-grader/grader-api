@@ -42,6 +42,7 @@ class RunUnitTestJob < ApplicationJob
       else
         xml_arr = split_output_to_xmls(xml)
         hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
+        puts "HASH ARR", hash_arr
         final_hash = aggregate_json_hashes(submission,hash_arr, security_string, rerun)
         puts final_hash
         post_results_to_webserver(submission, final_hash)
