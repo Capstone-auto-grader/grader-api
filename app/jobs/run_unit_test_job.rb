@@ -13,13 +13,13 @@ class RunUnitTestJob < ApplicationJob
   ACCESS_KEY = ENV['ACCESS_KEY']
   XML_HEADER = '<?xml version="1.0" encoding="UTF-8" ?>'
   XML_HEADER_REGEX = /<\?xml version="1\.0" encoding="UTF-8" ?\?>/
-  def perform(submission_id, project_uri, test_uri, image_name, student_name, security_string, rerun)
+  def perform(submission_id, project_uri, test_uri, image_id, student_name, security_string, rerun)
     puts "#{project_uri} PROJECT URI"
     submission = Submission.find(submission_id)
     # puts project_uri
     # puts test_uri
     Docker.options[:read_timeout] = 7200
-    img = Container.find_by(name: image_name)
+    img = Container.find(image_id.to_i)
     # puts img
     container = Docker::Container.create('Image' => img.uid,
                                          'Env' => ["AWS_SECRET_ACCESS_KEY=#{SECRET_KEY}", "AWS_ACCESS_KEY_ID=#{ACCESS_KEY}"],
@@ -30,24 +30,13 @@ class RunUnitTestJob < ApplicationJob
     xml = container.logs(stdout: true)
     puts "BBBBBBBBBBBBBB"
     puts xml
-      if image_name == 'processing'
-        final_hash = {
-            'status' => 'ok',
-            'id' => submission.proj_id,
-            'sec' => security_string,
-            'number_of_tests' => 0,
-            'number_of_failures' => 0,
-            'number_of_errors' => 0
-        }
-        post_results_to_webserver(submission, final_hash)
-      else
-        xml_arr = split_output_to_xmls(xml)
-        hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
-        puts "HASH ARR", hash_arr
-        final_hash = aggregate_json_hashes(submission,hash_arr, security_string, rerun)
-        puts final_hash
-        post_results_to_webserver(submission, final_hash)
-      end
+
+    xml_arr = split_output_to_xmls(xml)
+    hash_arr = xml_arr.map { |elem| single_xml_string_to_hash(elem) }
+    puts "HASH ARR", hash_arr
+    final_hash = aggregate_json_hashes(submission,hash_arr, security_string, rerun)
+    puts final_hash
+    post_results_to_webserver(submission, final_hash)
     # puts "XML"
     # puts xml
     # TODO: CHECK EXIT STATUS

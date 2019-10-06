@@ -80,7 +80,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/jobs/run_unit_test_job.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="524">
+            <state relative-caret-position="2595">
               <caret line="173" selection-start-line="173" selection-end-line="174" />
             </state>
           </provider>
@@ -393,7 +393,7 @@
       <workItem from="1568585952003" duration="4744000" />
       <workItem from="1568817447475" duration="1469000" />
       <workItem from="1569685607307" duration="378000" />
-      <workItem from="1569806541820" duration="13650000" />
+      <workItem from="1569806541820" duration="13679000" />
     </task>
     <task id="LOCAL-00001" summary="Modified controller to account for updates to frontend">
       <created>1567558138498</created>
@@ -406,7 +406,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="186334000" />
+    <option name="totallyTimeSpent" value="186363000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1040" extended-state="6" />
@@ -681,7 +681,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/jobs/run_unit_test_job.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
+        <state relative-caret-position="2595">
           <caret line="173" selection-start-line="173" selection-end-line="174" />
         </state>
       </provider>

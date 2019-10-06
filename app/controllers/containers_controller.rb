@@ -16,9 +16,13 @@ class ContainersController < ApplicationController
   # POST /containers
   def create
     @container = Container.new(container_params)
-
+    item_uri = S3_BUCKET.object(@container.config_uri).presigned_url(:get, expires_in: 60)
+      image = Docker::Image.build_from_tar(open(item_uri))
+      @container.uid = image.id
+      @container.save
     if @container.save
-      CreateContainerFromTarJob.perform_later(@container.id)
+      # CreateContainerFromTarJob.perform_later(@container.id)
+      
       render json: @container, status: :created, location: @container
     else
       render json: @container.errors, status: :unprocessable_entity
@@ -55,7 +59,7 @@ class ContainersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def container_params
-      puts params
+
       params.require(:container).permit(:config_uri, :name)
     end
 end
