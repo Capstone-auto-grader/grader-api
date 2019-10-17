@@ -1,0 +1,3 @@
+#!/bin/bash
+
+eb ssh -c 'tail -f /var/app/current/log/production.log /var/log/puma/puma.log' 

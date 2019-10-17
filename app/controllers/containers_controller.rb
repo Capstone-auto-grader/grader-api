@@ -17,7 +17,9 @@ class ContainersController < ApplicationController
   def create
     @container = Container.new(container_params)
     item_uri = S3_BUCKET.object(@container.config_uri).presigned_url(:get, expires_in: 60)
+    puts "URI", item_uri
       image = Docker::Image.build_from_tar(open(item_uri))
+      puts "IMAGE", image
       @container.uid = image.id
       @container.save
     if @container.save
